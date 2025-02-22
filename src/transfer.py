@@ -14,5 +14,4 @@ def transfer_to_starkbank(amount):
             account_type="payment"
         )
     ])
-
-    print(transfer)
+    return(transfer[0])
