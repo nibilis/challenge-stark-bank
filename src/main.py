@@ -24,14 +24,14 @@ def webhook():
     # Checking if the request is sent by Stark Bank
     signature = request.headers.get("Digital-Signature")
     if not signature:
-        abort(400, "Missing Digital-Signature")
+        return "Missing Digital-Signature", 400
 
     event = starkbank.event.parse(
         content=request.data.decode("utf-8"),
         signature=signature,
     )
-    # Checking the invoice status
-    if event.log.invoice.status == "credited":
+
+    if event.log.type == "credited":
         transfer_to_starkbank(event.log.invoice.amount)
         print("Money was transferred to Stark Bank!")
         return "Success", 200
@@ -39,7 +39,7 @@ def webhook():
         return "", 200
 
 # Cron job route
-@app.route("/cron", methods=["GET"])
+@app.route("/cron", methods=["POST"])
 # Function that receives a request and calls the function to create
 # invoices (8-12 by default). This function is scheduled to happen every
 # 3 hours by a cron job
@@ -51,4 +51,4 @@ def cron_send_invoices():
     return "Invalid action", 400
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
