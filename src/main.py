@@ -1,8 +1,9 @@
+import os
 import starkbank
-from flask import Flask, request, abort
-from config import project
-from invoice import create_invoices
-from transfer import transfer_to_starkbank
+from flask import Flask, request
+from src.config import project
+from src.invoice import create_invoices
+from src.transfer import transfer_to_starkbank
 
 # Setting up flask app
 app = Flask(__name__)
@@ -13,6 +14,14 @@ starkbank.user = project
 # Setting error language
 starkbank.language = "en-US"
 
+# Getting cron security token
+cron_token = os.getenv("CRON_TOKEN")
+
+
+# Default route
+@app.route("/", methods=["GET"])
+def home():
+    return "Stark bank challenge"
 
 # Webhook route
 @app.route("/webhook", methods=["POST"])
@@ -44,11 +53,12 @@ def webhook():
 # invoices (8-12 by default). This function is scheduled to happen every
 # 3 hours by a cron job
 def cron_send_invoices():
-    action = request.args.get("action")
-    if action == "send_invoices":
+    token = request.args.get("token")
+    if token == cron_token:
         create_invoices()
         return "Invoices sent", 200
-    return "Invalid action", 400
+    else:
+        return "Invalid token", 403
 
 if __name__ == "__main__":
     app.run()

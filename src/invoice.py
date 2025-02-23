@@ -1,7 +1,7 @@
 import random
 import starkbank
 from faker import Faker
-from utils.constants import names_list
+from src.utils.constants import names_list
 
 # Function that creates invoices with random values and people
 # Receives amount of invoices to be created as a parameter (default value
