@@ -6,5 +6,6 @@ This repository was created to store my solution to the Stark Bank challenge. Th
 
 ## My solution
 
-My solution consists of a Flask application that listens for incoming webhooks from the Stark Bank API. If it receives a webhook event that says that an invoice has been credited, it transfers the invoice value to another account.
-Additionally, the app supports cron jobs to schedule the creation of the invoices.
+- My solution consists of a Flask application that listens for incoming webhooks from the Stark Bank API. 
+- The app is being hosted on [Vercel](nicolas-starkbank-challenge.vercel.app).
+- The cronjob was configured through the [Github Actions tab](https://github.com/nibilis/challenge-stark-bank/actions).
