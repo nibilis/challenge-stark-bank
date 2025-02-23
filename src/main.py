@@ -48,7 +48,7 @@ def webhook():
         return "", 200
 
 # Cron job route
-@app.route("/cron", methods=["POST"])
+@app.route("/cron", methods=["GET"])
 # Function that receives a request and calls the function to create
 # invoices (8-12 by default). This function is scheduled to happen every
 # 3 hours by a cron job
