@@ -1,14 +1,16 @@
-name: Cron Job
+# ---
+# name: Cron Job
 
-on:
-  schedule:
-    - cron: "0 */3 * * *"
+# on:
+#   schedule:
+#     - cron: "0 */3 * * *"
 
-jobs:
-  run-cron-job:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Activate cron route on Vercel
-        run: |
-          curl -X POST "https://nicolas-starkbank-challenge.vercel.app/cron?token=${{ secrets.CRON_TOKEN }}"
+# jobs:
+#   run-cron-job:
+#     runs-on: ubuntu-latest
+# 
+#     steps:
+#       - name: Activate cron route on Vercel
+#         run: |
+#           curl -X POST "https://nicolas-starkbank-challenge.vercel.app/cron?token=${{ secrets.CRON_TOKEN }}"
+# ---
